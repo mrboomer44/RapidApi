@@ -1,28 +1,39 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using RapidApi.Models;
-using System.Linq;
-using System.Collections.Generic;
 
 namespace RapidApi.ViewComponents
 {
     public class ForeignCurrencyComponentPartial : ViewComponent
     {
+        private readonly IConfiguration _configuration;
+
+        public ForeignCurrencyComponentPartial(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         public async Task<IViewComponentResult> InvokeAsync()
         {
             try
             {
+                var apiKey = _configuration["RapidApi:ApiKey"];
+                var url = _configuration["RapidApi:ForeignCurrency:Url"];
+                var host = _configuration["RapidApi:ForeignCurrency:Host"];
+
                 var client = new HttpClient();
                 var request = new HttpRequestMessage
                 {
                     Method = HttpMethod.Get,
-                    RequestUri = new Uri("https://live-exchange-rates-api-try-based-forex-pairs.p.rapidapi.com/harem_altin/prices/doviz/ebc099879744f4aa3e02ff6762874055"),
+                    RequestUri = new Uri(url),
                     Headers =
                     {
-                        { "x-rapidapi-key", "7bac634cd7msh9f45e7c153e8dbep14a7cdjsn8f633fd9100f" },
-                        { "x-rapidapi-host", "live-exchange-rates-api-try-based-forex-pairs.p.rapidapi.com" },
+                        { "x-rapidapi-key", apiKey },
+                        { "x-rapidapi-host", host },
                     },
                 };
+
                 using (var response = await client.SendAsync(request))
                 {
                     if (response.IsSuccessStatusCode)
@@ -30,12 +41,20 @@ namespace RapidApi.ViewComponents
                         var body = await response.Content.ReadAsStringAsync();
                         var result = JsonConvert.DeserializeObject<ForeignCurrencyRootViewModel>(body);
                         var targetCurrencies = new[] { "USDTRY", "EURTRY", "GBPTRY" };
-                        var filteredData = result?.data?.Where(x => targetCurrencies.Contains(x.kod)).ToList();
-                        if (filteredData != null) return View(filteredData);
+
+                        var filteredData = result?.data?
+                            .Where(x => targetCurrencies.Contains(x.kod))
+                            .ToList();
+
+                        if (filteredData != null && filteredData.Any())
+                        {
+                            return View(filteredData);
+                        }
                     }
                 }
             }
             catch { }
+
             return View(new List<CurrencyDetailViewModel>());
         }
     }

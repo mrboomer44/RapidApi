@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using RapidApi.Models;
 
@@ -6,19 +7,30 @@ namespace RapidApi.ViewComponents
 {
     public class GasPriceComponentPartial : ViewComponent
     {
+        private readonly IConfiguration _configuration;
+
+        public GasPriceComponentPartial(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         public async Task<IViewComponentResult> InvokeAsync()
         {
             try
             {
+                var apiKey = _configuration["RapidApi:ApiKey"];
+                var url = _configuration["RapidApi:GasPrice:Url"];
+                var host = _configuration["RapidApi:GasPrice:Host"];
+
                 var client = new HttpClient();
                 var request = new HttpRequestMessage
                 {
                     Method = HttpMethod.Get,
-                    RequestUri = new Uri("https://gas-price.p.rapidapi.com/europeanCountries"),
+                    RequestUri = new Uri(url),
                     Headers =
                     {
-                        { "x-rapidapi-key", "7bac634cd7msh9f45e7c153e8dbep14a7cdjsn8f633fd9100f" },
-                        { "x-rapidapi-host", "gas-price.p.rapidapi.com" },
+                        { "x-rapidapi-key", apiKey },
+                        { "x-rapidapi-host", host },
                     },
                 };
 
@@ -27,9 +39,7 @@ namespace RapidApi.ViewComponents
                     if (response.IsSuccessStatusCode)
                     {
                         var body = await response.Content.ReadAsStringAsync();
-
                         var apiResponse = JsonConvert.DeserializeObject<GasPriceRootViewModel>(body);
-
                         var turkeyData = apiResponse?.result?
                             .FirstOrDefault(x => x.country != null && x.country.Equals("Turkey", StringComparison.OrdinalIgnoreCase));
 
@@ -40,10 +50,7 @@ namespace RapidApi.ViewComponents
                     }
                 }
             }
-            catch
-            {
-                // API hatası durumunda boş model ile devam et
-            }
+            catch { }
 
             return View(new GasPriceViewModel());
         }
