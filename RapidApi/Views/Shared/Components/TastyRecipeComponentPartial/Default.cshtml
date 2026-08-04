@@ -1,0 +1,48 @@
+@model RapidApi.Models.TastyRecipeDetailViewModel
+
+<div class="dash-card-header d-flex justify-content-between align-items-center mb-3">
+    <div>
+        <i class="fa-solid fa-utensils text-danger me-2"></i>
+        <span class="dash-card-title">Günün Yemek Önerisi</span>
+    </div>
+    <span class="dash-badge dash-badge-danger">Günün Menüsü</span>
+</div>
+
+@if (Model == null || string.IsNullOrEmpty(Model.name))
+{
+    <div class="text-warning text-center mt-3">
+        <i class="fa-solid fa-triangle-exclamation fa-2x mb-2"></i>
+        <p>Veri yüklenemedi.</p>
+    </div>
+}
+else
+{
+    <div class="recipe-flex d-flex gap-3">
+        <img src="@Model.thumbnail_url" alt="@Model.name" class="recipe-thumb rounded" style="width: 120px; height: 120px; object-fit: cover;" />
+        <div class="d-flex flex-column">
+            <h5 class="fw-bold mb-1">@Model.name</h5>
+            <p class="text-white-50 small mb-2" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                @Model.description
+            </p>
+            <div class="d-flex gap-2 text-white-50 small mb-2 font-mono">
+                @if (Model.cook_time_minutes > 0)
+                {
+                    <span><i class="fa-regular fa-clock me-1"></i> Pişirme: @Model.cook_time_minutes dk</span>
+                }
+                @if (Model.total_time_minutes > 0)
+                {
+                    <span><i class="fa-solid fa-stopwatch me-1"></i> Toplam: @Model.total_time_minutes dk</span>
+                }
+            </div>
+            <div class="d-flex flex-wrap gap-1 mt-auto">
+                @if (Model.tags != null)
+                {
+                    foreach (var tag in Model.tags.Take(3))
+                    {
+                        <span class="dash-badge dash-badge-dark" style="font-size: 0.7rem;">@tag.display_name</span>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+}

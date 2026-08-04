@@ -1,0 +1,25 @@
+@model RapidApi.Models.QuoteViewModel
+
+<div class="quote-banner position-relative p-4 rounded text-center mt-3" style="background: linear-gradient(135deg, #1e1e1e 0%, #2d2d2d 100%);">
+    <div class="dash-card-header d-flex justify-content-center align-items-center mb-3">
+        <i class="fa-solid fa-quote-left text-info me-2 fs-4"></i>
+        <span class="dash-card-title text-info fw-bold fs-5">Günün Motivasyon Sözü</span>
+    </div>
+    
+    @if (Model == null || string.IsNullOrEmpty(Model.text))
+    {
+        <div class="text-warning mt-3">
+            <i class="fa-solid fa-triangle-exclamation fa-2x mb-2"></i>
+            <p>Veri yüklenemedi.</p>
+        </div>
+    }
+    else
+    {
+        <p class="fs-4 fst-italic text-white mb-2" id="quoteText">"@Model.text"</p>
+        <p class="text-white-50 mb-0" id="quoteAuthor">— @Model.author</p>
+        
+        <button id="copyQuoteBtn" class="btn btn-sm btn-outline-info position-absolute" style="top: 15px; right: 15px;" title="Kopyala">
+            <i class="fa-regular fa-copy"></i>
+        </button>
+    }
+</div>

@@ -1,0 +1,42 @@
+@model RapidApi.Models.MatchRootViewModel
+
+<div class="dash-card-header d-flex justify-content-between align-items-center mb-3">
+    <div>
+        <i class="fa-solid fa-futbol text-light me-2"></i>
+        <span class="dash-card-title">Futbol Maç Sonucu</span>
+    </div>
+    @if (Model?.eventData?.status != null)
+    {
+        <span class="dash-badge dash-badge-dark">@Model.eventData.status.description</span>
+    }
+</div>
+
+@if (Model == null || Model.eventData == null || Model.eventData.homeTeam == null || Model.eventData.awayTeam == null)
+{
+    <div class="text-warning text-center mt-3">
+        <i class="fa-solid fa-triangle-exclamation fa-2x mb-2"></i>
+        <p>Veri yüklenemedi.</p>
+    </div>
+}
+else
+{
+    <div class="match-score-board text-center p-3 rounded bg-dark">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="team-name fw-bold fs-5 text-truncate w-25" title="@Model.eventData.homeTeam.name">@Model.eventData.homeTeam.name</div>
+            <div class="score-num font-mono fs-3 fw-bold px-3 py-1 bg-black rounded">
+                @(Model.eventData.homeScore?.current ?? 0) - @(Model.eventData.awayScore?.current ?? 0)
+            </div>
+            <div class="team-name fw-bold fs-5 text-truncate w-25" title="@Model.eventData.awayTeam.name">@Model.eventData.awayTeam.name</div>
+        </div>
+        <div class="text-white-50 small d-flex flex-column gap-1">
+            @if (Model.eventData.tournament != null)
+            {
+                <div><i class="fa-solid fa-trophy text-warning me-1"></i> @Model.eventData.tournament.name</div>
+            }
+            @if (Model.eventData.venue != null)
+            {
+                <div><i class="fa-solid fa-location-dot text-info me-1"></i> @Model.eventData.venue.name</div>
+            }
+        </div>
+    </div>
+}

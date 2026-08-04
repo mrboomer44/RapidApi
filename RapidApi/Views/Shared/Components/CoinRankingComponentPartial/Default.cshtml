@@ -1,0 +1,50 @@
+@model List<RapidApi.Models.CoinRankingCoinViewModel>
+
+<div class="dash-card-header d-flex justify-content-between align-items-center mb-3">
+    <div>
+        <i class="fa-brands fa-bitcoin text-warning me-2"></i>
+        <span class="dash-card-title">Kripto Para Fiyatları</span>
+    </div>
+    <span class="dash-badge dash-badge-warning">Piyasa Hacmi Top 4</span>
+</div>
+
+@if (Model == null || !Model.Any())
+{
+    <div class="text-warning text-center mt-3">
+        <i class="fa-solid fa-triangle-exclamation fa-2x mb-2"></i>
+        <p>Veri yüklenemedi.</p>
+    </div>
+}
+else
+{
+    <div class="crypto-grid-2x2">
+        @foreach (var coin in Model.Take(4))
+        {
+            var isNegative = coin.change?.StartsWith("-") ?? false;
+            var colorClass = isNegative ? "text-danger" : "text-success";
+            var prefix = isNegative ? "" : "+";
+            
+            <div class="crypto-item-box d-flex flex-column p-2">
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    @if (!string.IsNullOrEmpty(coin.iconUrl))
+                    {
+                        <img src="@coin.iconUrl" alt="@coin.name" width="24" height="24" style="object-fit: contain;" />
+                    }
+                    <div>
+                        <div class="fw-bold fs-6 text-truncate" style="max-width: 90px;" title="@coin.name">@coin.name</div>
+                        <div class="text-white-50 extra-small">@coin.symbol / USD</div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center gap-1 mt-auto flex-wrap">
+                    @{
+                        double parsedPrice = 0;
+                        double.TryParse(coin.price, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out parsedPrice);
+                        var formattedPrice = parsedPrice > 0 ? parsedPrice.ToString("N2", System.Globalization.CultureInfo.InvariantCulture) : coin.price;
+                    }
+                    <span class="font-mono fw-bold text-white" style="font-size: 0.9rem;">$@formattedPrice</span>
+                    <span class="font-mono @colorClass fw-bold extra-small px-1 rounded" style="background: rgba(255,255,255,0.05);">@prefix@coin.change%</span>
+                </div>
+            </div>
+        }
+    </div>
+}

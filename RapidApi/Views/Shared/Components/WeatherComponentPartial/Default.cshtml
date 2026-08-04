@@ -1,0 +1,40 @@
+@model RapidApi.Models.WeatherRootViewModel
+
+<div class="dash-card-header">
+    <span class="dash-card-title">
+        <i class="fa-solid fa-cloud-sun text-info"></i> Güncel Hava Durumu
+    </span>
+    @if (Model != null && !string.IsNullOrEmpty(Model.name))
+    {
+        <span class="dash-badge dash-badge-dark">@Model.name</span>
+    }
+</div>
+
+@if (Model == null || Model.main == null)
+{
+    <div class="text-center py-4">
+        <i class="fa-solid fa-triangle-exclamation text-warning fs-3 mb-2 d-block"></i>
+        <p class="text-white-50 mb-0">Hava durumu verileri yüklenemedi.</p>
+    </div>
+}
+else
+{
+    var description = Model.weather?.FirstOrDefault()?.description ?? "Bilinmiyor";
+    <div class="weather-main-display my-auto">
+        <div>
+            <div class="temp-large">@Math.Round(Model.main.temp)°C</div>
+            <div class="fw-bold text-white fs-5 mt-1" style="text-transform: capitalize;">@description</div>
+            <small class="text-white-50">
+                Hissedilen: @Math.Round(Model.main.feels_like)°C •
+                Nem: %@Model.main.humidity •
+                Rüzgar: @(Model.wind?.speed ?? 0) km/s
+            </small>
+        </div>
+        <svg class="weather-svg-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="26" cy="26" r="12" fill="#FACC15" />
+            <path d="M26 8V4M26 48V44M8 26H4M48 26H44M13.27 13.27L10.44 10.44M41.56 41.56L38.73 38.73M13.27 38.73L10.44 41.56M41.56 10.44L38.73 13.27" stroke="#FACC15" stroke-width="3" stroke-linecap="round" />
+            <path d="M46 44C50.42 44 54 40.42 54 36C54 31.8 50.77 28.36 46.65 28.05C45.36 21.75 39.81 17 33 17C25.4 17 19.13 22.49 17.85 29.68C13.98 30.56 11 34.01 11 38C11 42.42 14.58 46 19 46H46Z" fill="#38BDF8" fill-opacity="0.85" />
+        </svg>
+    </div>
+}
+

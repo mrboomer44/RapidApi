@@ -1,0 +1,39 @@
+@model RapidApi.Models.DeezerMusicRootViewModel
+
+<div class="dash-card-header d-flex justify-content-between align-items-center mb-3">
+    <div>
+        <i class="fa-solid fa-music me-2" style="color: #a855f7;"></i>
+        <span class="dash-card-title">Günün En Çok Dinlenen Şarkısı</span>
+    </div>
+    <span class="dash-badge dash-badge-purple">Top 1 Hit</span>
+</div>
+
+@if (Model == null || Model.data == null || !Model.data.Any())
+{
+    <div class="text-warning text-center mt-3">
+        <i class="fa-solid fa-triangle-exclamation fa-2x mb-2"></i>
+        <p>Veri yüklenemedi.</p>
+    </div>
+}
+else
+{
+    var song = Model.data.First();
+    <div class="music-player-bar p-3 bg-dark rounded d-flex flex-column gap-3">
+        <div class="d-flex align-items-center gap-3">
+            @if (song.album != null)
+            {
+                <img src="@song.album.cover_medium" alt="Cover" class="recipe-thumb rounded" style="width: 75px; height: 75px; object-fit: cover;" />
+            }
+            <div class="d-flex flex-column flex-grow-1 overflow-hidden">
+                <div class="fw-bold fs-5 text-truncate" title="@song.title">@song.title</div>
+                <div class="text-white-50 text-truncate">@(song.artist?.name)</div>
+            </div>
+            <a href="@song.link" target="_blank" class="play-circle-btn text-white fs-2 text-decoration-none">
+                <i class="fa-regular fa-circle-play"></i>
+            </a>
+        </div>
+        <div class="progress" style="height: 4px;">
+            <div class="progress-bar" role="progressbar" style="width: 30%; background-color: #a855f7;"></div>
+        </div>
+    </div>
+}

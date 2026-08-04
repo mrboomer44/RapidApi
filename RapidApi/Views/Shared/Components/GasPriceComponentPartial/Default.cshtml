@@ -1,0 +1,38 @@
+@model RapidApi.Models.GasPriceViewModel
+
+@if (!string.IsNullOrEmpty(Model?.country))
+{
+    var curr = string.IsNullOrEmpty(Model.currency) ? "€" : (Model.currency == "EUR" ? "€" : Model.currency);
+    <div class="dash-card-header">
+        <span class="dash-card-title">
+            <i class="fa-solid fa-gas-pump text-warning"></i> Güncel Akaryakıt Fiyatları
+        </span>
+        <span class="dash-badge dash-badge-dark">@Model.country</span>
+    </div>
+    <div class="fuel-box-grid my-auto">
+        <div class="fuel-box">
+            <small class="text-white-50 d-block mb-1">Benzin (95)</small>
+            <div class="fuel-price-text font-mono" style="font-size: 1.4rem;">@Model.gasoline @curr</div>
+        </div>
+        <div class="fuel-box">
+            <small class="text-white-50 d-block mb-1">Motorin (Dizel)</small>
+            <div class="fuel-price-text font-mono text-danger" style="font-size: 1.4rem;">@Model.diesel @curr</div>
+        </div>
+        <div class="fuel-box">
+            <small class="text-white-50 d-block mb-1">Otogaz LPG</small>
+            <div class="fuel-price-text font-mono text-warning" style="font-size: 1.4rem;">@Model.lpg @curr</div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="dash-card-header">
+        <span class="dash-card-title">
+            <i class="fa-solid fa-gas-pump text-warning"></i> Güncel Akaryakıt Fiyatları
+        </span>
+    </div>
+    <div class="text-center py-4">
+        <i class="fa-solid fa-triangle-exclamation text-warning fs-3 mb-2 d-block"></i>
+        <p class="text-white-50 mb-0">Akaryakıt verileri yüklenemedi.</p>
+    </div>
+}

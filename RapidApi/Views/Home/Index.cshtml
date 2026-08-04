@@ -1,0 +1,85 @@
+@{
+    ViewData["Title"] = "RapidAPI Dashboard";
+}
+
+<!-- Hero Title Header -->
+<div class="dashboard-hero d-flex justify-content-between align-items-center flex-wrap gap-2">
+    <div>
+        <h1>RapidAPI Control Center</h1>
+        <p class="text-white-50 mb-0">Tüm 10 API servisine ait güncel widget görünümleri (Canlı API Verileri)</p>
+    </div>
+    <span class="dash-badge dash-badge-success">
+        <i class="fa-solid fa-check-double"></i> 10 / 10 Widget Aktif
+    </span>
+</div>
+
+<!-- Main Widgets Stack Container -->
+<div class="widgets-container">
+
+    <!-- ROW 1: Akaryakıt & Döviz -->
+    <div class="widget-row">
+        <!-- 1. Akaryakıt (ViewComponent) -->
+        <div class="dash-card">
+            @await Component.InvokeAsync("GasPriceComponentPartial")
+        </div>
+
+        <!-- 2. Döviz Kurları (ViewComponent) -->
+        <div class="dash-card">
+            @await Component.InvokeAsync("ForeignCurrencyComponentPartial")
+        </div>
+    </div>
+
+    <!-- ROW 2: Kripto Para & Hava Durumu -->
+    <div class="widget-row">
+        <!-- 3. Kripto Para (ViewComponent) -->
+        <div class="dash-card">
+            @await Component.InvokeAsync("CoinRankingComponentPartial")
+        </div>
+
+        <!-- 4. Hava Durumu (ViewComponent) -->
+        <div class="dash-card">
+            @await Component.InvokeAsync("WeatherComponentPartial")
+        </div>
+    </div>
+
+    <!-- ROW 3: Yemek Önerisi & Futbol Maçı Sonucu -->
+    <div class="widget-row">
+        <!-- 5. Yemek Önerisi (ViewComponent) -->
+        <div class="dash-card">
+            @await Component.InvokeAsync("TastyRecipeComponentPartial")
+        </div>
+
+        <!-- 6. Futbol Maçı Sonucu (ViewComponent) -->
+        <div class="dash-card">
+            @await Component.InvokeAsync("MatchComponentPartial")
+        </div>
+    </div>
+
+    <!-- ROW 4: Güncel Haberler (FULL WIDTH) -->
+    <div class="widget-row-full">
+        <!-- 7. Haberler (ViewComponent) -->
+        <div class="dash-card">
+            @await Component.InvokeAsync("NewsComponentPartial")
+        </div>
+    </div>
+
+    <!-- ROW 5: Günün Filmi & Günün Şarkısı -->
+    <div class="widget-row">
+        <!-- 8. Film (ViewComponent) -->
+        <div class="dash-card">
+            @await Component.InvokeAsync("MovieComponentPartial")
+        </div>
+
+        <!-- 9. Şarkı (ViewComponent) -->
+        <div class="dash-card">
+            @await Component.InvokeAsync("MusicComponentPartial")
+        </div>
+    </div>
+
+    <!-- ROW 6: Günün Motivasyon Sözü (FULL WIDTH) -->
+    <div class="widget-row-full">
+        <!-- 10. Quote (ViewComponent) -->
+        @await Component.InvokeAsync("QuoteComponentPartial")
+    </div>
+
+</div>

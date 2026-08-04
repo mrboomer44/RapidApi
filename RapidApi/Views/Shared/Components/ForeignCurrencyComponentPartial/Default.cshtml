@@ -1,0 +1,37 @@
+@model List<RapidApi.Models.CurrencyDetailViewModel>
+
+<div class="dash-card-header d-flex justify-content-between align-items-center mb-3">
+    <div>
+        <i class="fa-solid fa-money-bill-transfer text-success me-2"></i>
+        <span class="dash-card-title">Güncel Döviz Kurları</span>
+    </div>
+    <span class="dash-badge dash-badge-success">Serbest Piyasa</span>
+</div>
+
+@if (Model == null || !Model.Any())
+{
+    <div class="text-warning text-center mt-3">
+        <i class="fa-solid fa-triangle-exclamation fa-2x mb-2"></i>
+        <p>Veri yüklenemedi.</p>
+    </div>
+}
+else
+{
+    <div class="currency-list-group">
+        @foreach (var currency in Model)
+        {
+            var shortName = currency.kod;
+            if (currency.kod == "USDTRY") shortName = "USD / TRY";
+            else if (currency.kod == "EURTRY") shortName = "EUR / TRY";
+            else if (currency.kod == "GBPTRY") shortName = "GBP / TRY";
+            
+            <div class="currency-row-item d-flex justify-content-between align-items-center py-2 border-bottom border-secondary">
+                <div class="d-flex align-items-center gap-2">
+                    <span class="dash-badge dash-badge-dark font-mono">@currency.kod</span>
+                    <span class="fw-bold">@shortName</span>
+                </div>
+                <span class="font-mono text-success fw-bold">@currency.satis ₺</span>
+            </div>
+        }
+    </div>
+}
