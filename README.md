@@ -22,20 +22,20 @@ Projede her API entegrasyonu **`ViewComponent`** mimarisine dönüştürülmüş
 
 ---
 
-## 📊 Dashboard Servisleri (10/10 Widget)
+## 📊 Entegre Edilen 10 RapidAPI Servisi
 
-| Widget | Bileşen (ViewComponent) | Açıklama |
-| :--- | :--- | :--- |
-| ⛽ **Akaryakıt Fiyatları** | `GasPriceComponentPartial` | Benzin (95), Motorin ve LPG güncel fiyat verileri |
-| 💱 **Döviz Kurları** | `ForeignCurrencyComponentPartial` | USD/TRY, EUR/TRY, GBP/TRY serbest piyasa canlı kurları |
-| 🪙 **Kripto Paralar** | `CoinRankingComponentPartial` | BTC, ETH, SOL, BNB 24s fiyat ve değişim yüzdeleri (`+`/`-`) |
-| ☀️ **Hava Durumu** | `WeatherComponentPartial` | Şehir bazlı anlık sıcaklık, nem, rüzgar hızı ve durum SVG ikonu |
-| 🍳 **Günün Yemek Önerisi** | `TastyRecipeComponentPartial` | Pratik menü önerisi, hazırlanma süresi, görsel ve etiketler |
-| ⚽ **Futbol Maç Sonucu** | `MatchComponentPartial` | Canlı/Sonlanan maç skoru, takım isimleri, lig ve stadyum bilgisi |
-| 📰 **Güncel Haber İçeriği** | `NewsComponentPartial` | Son dakika haber başlıkları, özetleri, görselleri ve kaynakları |
-| 🎬 **Günün Filmi & IMDb** | `MovieComponentPartial` | Popüler film afişi, çıkış yılı, oyuncular ve **★ IMDb Puanı** |
-| 🎵 **Günün Şarkısı** | `MusicComponentPartial` | En çok dinlenen hit şarkı, albüm kapağı ve medya oynatıcı UI |
-| 💬 **Motivasyon Sözü** | `QuoteComponentPartial` | Rastgele motivasyon sözü ve tek tıkla **Panoya Kopyalama** |
+| Widget | Bileşen (ViewComponent) | Açıklama | RapidAPI Bağlantısı |
+| :--- | :--- | :--- | :--- |
+| ⛽ **Akaryakıt Fiyatları** | `GasPriceComponentPartial` | Benzin (95), Motorin ve LPG güncel fiyat verileri | [Gas Price API](https://rapidapi.com/collectapi/api/gas-price) |
+| 💱 **Döviz Kurları** | `ForeignCurrencyComponentPartial` | USD/TRY, EUR/TRY, GBP/TRY serbest piyasa canlı kurları | [Live Exchange Rates API](https://rapidapi.com/smokinyazilim/api/live-exchange-rates-api-try-based-forex-pairs) |
+| 🪙 **Kripto Paralar** | `CoinRankingComponentPartial` | BTC, ETH, SOL, BNB 24s fiyat ve değişim yüzdeleri | [Coinranking API](https://rapidapi.com/Coinranking/api/coinranking1) |
+| ☀️ **Hava Durumu** | `WeatherComponentPartial` | Şehir bazlı anlık sıcaklık, nem, rüzgar hızı ve SVG ikonu | [Open Weather API](https://rapidapi.com/worldapi/api/open-weather13) |
+| 🍳 **Günün Yemek Önerisi** | `TastyRecipeComponentPartial` | Pratik menü önerisi, hazırlanma süresi, görsel ve etiketler | [Tasty API](https://rapidapi.com/apidojo/api/tasty) |
+| ⚽ **Futbol Maç Sonucu** | `MatchComponentPartial` | Canlı/Sonlanan maç skoru, takım isimleri, lig ve stadyum bilgisi | [SofaScore API](https://rapidapi.com/apidojo/api/sofascore) |
+| 📰 **Güncel Haber İçeriği** | `NewsComponentPartial` | Son dakika haber başlıkları, özetleri, görselleri ve kaynakları | [Real-Time News Data API](https://rapidapi.com/letscrape-6bRBa3QguO5/api/real-time-news-data) |
+| 🎬 **Günün Filmi & IMDb** | `MovieComponentPartial` | Popüler film afişi, çıkış yılı, oyuncular ve **★ IMDb Puanı** | [Online Movie Database API](https://rapidapi.com/apidojo/api/online-movie-database) |
+| 🎵 **Günün Şarkısı** | `MusicComponentPartial` | En çok dinlenen hit şarkı, albüm kapağı ve medya oynatıcı UI | [Deezer API](https://rapidapi.com/deezerdevs/api/deezer-1) |
+| 💬 **Motivasyon Sözü** | `QuoteComponentPartial` | Rastgele motivasyon sözü ve tek tıkla **Panoya Kopyalama** | [Quotes API](https://rapidapi.com/ipworld/api/quotes-inspirational-quotes-motivational-quotes) |
 
 ---
 
